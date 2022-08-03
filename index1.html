@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>dynamic form</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <style>
+        body {
+
+        font-size: 15pt;
+
+        font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+
+        color: black;
+
+        line-height: 14pt;
+
+        padding-left: 5pt;
+
+        padding-right: 5pt;
+
+        padding-top: 10pt;
+
+        text-align: center;
+
+
+        }
+        input[type=text], select {
+          width: 65%;
+          padding: 12px 20px;
+          margin: 0 auto;
+          display: block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        input[type=text] {
+        width: 55%;
+        padding: 12px 20px;
+        margin: 10px auto;
+        box-sizing: border-box;
+        border: 2px solid green;
+        border-radius: 4px;
+        display: block;
+        
+        }
+        
+        input[type=submit] {
+          width: 20%;
+          background-color: #49ac4d;
+          color: white;
+          padding: 10px 15px;
+          margin: 5px auto;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          box-sizing: border-box;
+          display: block;
+          
+          
+        }
+        
+        input[type=submit]:hover {
+          background-color: #449d49;
+        }
+        .select {
+            position: relative;
+            display: inline-block;
+            background: rgb(2, 170, 2);
+
+            cursor: pointer;
+            background-image: none;
+            width: 13em;
+            /* height: 5em;
+            line-height: 3; */
+            border-radius: .25em;
+            padding-bottom: 10px;
+        }
+        .select1 {
+            appearance: none;
+            outline: 0;
+            
+            width: 100%;
+            height: 100%;
+            color: black;
+            
+        }
+        
+        div {
+          border-radius: 5px;
+          background-color: #f2f2f2;
+          padding: 20px;
+        }
+        </style> -->
+</head>
+<body>
+    <header>
+        <nav class="bar">
+            <img src="NIC.png" id="logo" alt="">
+        </nav>
+        </header>
+    
+    
+    <input type="file" class="button-33" name="inputfile"
+    id="inputfile">
+    <br>
+    <br>
+    <button class="button-33" onclick="myFunction()">Create Form</button>
+    <script>
+        var ss;
+        document.getElementById('inputfile')
+            .addEventListener('change', function a() {
+              
+            var fr=new FileReader();
+            
+            fr.onload=function(){
+                ss = fr.result;
+                
+            }
+           
+              
+            fr.readAsText(this.files[0]);
+        })
+      
+
+        function myFunction(){
+               
+    var x = ss;
+    var sarray = x.split('-');
+    var f = document.createElement("form");
+    f.className="frm";
+    var d;
+    var e;
+    for (let i = 0; i < sarray.length; i++) {
+        if(x.length == 0){
+            alert("please enter a valid string");
+        }
+        else{
+            var str = sarray[i];
+            var arr = str.split(':');
+            switch(arr[0])
+            {   case 'd' : dropDown()
+                break;
+                case 't': inputField()
+                break;
+                case 'r': radioButton()
+                break;
+                case 'c': checkBox()
+                break;
+                case 'a' : textField()
+                break;
+
+
+            }
+            
+
+
+        }
+        var b = document.createElement('br');
+        f.appendChild(b);
+        var b = document.createElement('br');
+        f.appendChild(b);
+    }
+    var b = document.createElement('br');
+                f.appendChild(b);
+                var sub = document.createElement('input');
+                sub.type = "submit";
+                
+                f.appendChild(sub);
+    document.getElementsByTagName('body')[0].appendChild(f);
+    document.getElementById("input").value = null;
+
+    function inputField(){
+        d = document.createElement('input');
+        d.type = "text";
+        d.required = "text";
+        d.minLength = arr[2];
+        d.maxLength = arr[3];
+        d.placeholder = arr[1];
+        d.required = true;
+        f.appendChild(d);
+        d='';
+    };
+    function dropDown(){
+        d = document.createElement('label');
+        d.innerHTML = arr[1];
+        d.className="select1";
+        e = document.createElement('select');
+        e.className="select";
+        for(j=2;j<arr.length;j++){
+            var newOption = document.createElement('option');
+            var optionText = document.createTextNode(arr[j]);
+            newOption.appendChild(optionText);
+            e.appendChild(newOption);
+        }
+            f.appendChild(d);
+            f.appendChild(e);
+            d='';
+            e='';
+    }
+    function radioButton()
+    {
+        d = document.createElement('label');
+        d.innerHTML = arr[1];
+        f.appendChild(d);
+        d='';
+         for(j=2; j<arr.length;j++ )
+        {
+            var rad = document.createElement('input');
+            rad.className="input";
+            rad.type = 'radio';
+            rad.name = arr[1];
+            var lab = document.createElement('label');
+            lab.innerHTML = arr[j];
+            f.appendChild(rad);
+            rad='';
+            f.appendChild(lab);
+            lab='';
+
+        }
+
+
+    }
+    function checkBox()
+    {      
+        d = document.createElement('label');
+        d.innerHTML = arr[1];
+        f.appendChild(d);
+        d='';
+         for(j=2; j<arr.length;j++ )
+        {
+            var chec = document.createElement('input');
+            chec.className="input";
+            chec.type = 'checkbox';
+            chec.name = arr[1];
+            var lab = document.createElement('label');
+            lab.innerHTML = arr[j];
+            f.appendChild(chec);
+            chec='';
+            f.appendChild(lab);
+            lab='';
+
+        }
+
+    }
+    function textField()
+    {   d = document.createElement('label');
+        d.innerHTML = arr[1];
+        e = document.createElement('textarea');
+        e.className="input";
+        e.rows = 15;
+        e.cols = 50;
+        var b = document.createElement('br');
+        f.appendChild(d);
+        f.appendChild(b);
+        f.appendChild(e);
+        d='';
+        e='';
+
+    }
+
+}
+    </script>
+    
+</body>
+</html>
